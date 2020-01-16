@@ -38,7 +38,7 @@ pauseAfterQuickCut = true;
 function cut_audio_fragment_quickly() {
     mp.set_property("pause", "yes");
     set_end_timestamp();
-    print("End timestamp: success!")
+    print("End timestamp: success!");
 
     do { 
         dump(mp.wait_event(0));
@@ -49,7 +49,7 @@ function cut_audio_fragment_quickly() {
     
     do {
         dump(mp.wait_event(0));
-        mp.commandv("seek", end_timestamp, "absolute+exact")
+        mp.commandv("seek", end_timestamp, "absolute+exact");
         cut_audio_fragment();
         if (!pauseAfterQuickCut) {
             mp.set_property("pause", "no");
@@ -88,7 +88,7 @@ function cut_audio_fragment() {
             "-",
             seconds_to_time_string(end_timestamp, true),
             ".mp3"
-        ].join("")
+        ].join("");
 
         args = [
             mpv_path,
@@ -98,7 +98,7 @@ function cut_audio_fragment() {
             "--aid", aid.toString(),
             "--video=no",
             "--o=" + filename
-        ]
+        ];
 
         if (video_path.substring(1, 4) === "http" && mp.get_property("ytdl-format") !== "") {
             args.splice(args.length - 1, 0, "--ytdl-format=" + mp.get_property("ytdl-format"));  
@@ -129,9 +129,9 @@ function cut_audio_fragment() {
 }
 
 function toggle_pause_option() {
-    pauseAfterQuickCut = !pauseAfterQuickCut
-    if (pauseAfterQuickCut) mp.osd_message("Pause after encoding audio: true")
-    else mp.osd_message("Pause after encoding audio: false")
+    pauseAfterQuickCut = !pauseAfterQuickCut;
+    if (pauseAfterQuickCut) mp.osd_message("Pause after encoding audio: true");
+    else mp.osd_message("Pause after encoding audio: false");
 }
 
 function replay_sub() {
@@ -192,11 +192,11 @@ function format_filename(filename) {
 }
 
 function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function escapeFile(string) {
-    return string.replace(/[{}()|!\"#$&\'\*\,\;\<=>\?^\`\|~[\]\\ ]/g, '\\$&'); // $& means the whole matched string
+    return string.replace(/[{}()|!\"#$&\'\*\,\;\<=>\?^\`\|~[\]\\ ]/g, '\\$&');
 }
 
 function seconds_to_time_string(duration, flag) {
